@@ -81,6 +81,8 @@ src/
 ├── hooks/
 │   ├── useAuth.ts
 │   └── useLoanChat.ts
+│   └── use-toast.ts
+│   └── use-mobile.ts
 │
 ├── lib/
 │   ├── generateSanctionLetterPDF.ts
@@ -88,6 +90,9 @@ src/
 │
 ├── integrations/
 │   └── supabase/
+├── Types/
+|   └── loan.ts/
+|   └── txt/
 │
 └── main.tsx
 ```
