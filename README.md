@@ -160,11 +160,16 @@ npm run dev
 
 ### 📌 Future Enhancements
 
-**1) Admin dashboard**
-**2) Multi-bank loan offers**
+**1) Admin dashboard** 
+
+**2) Multi-bank loan offers** 
+
 **3) EMI calculator**
+
 **4) WhatsApp / Email notifications**
+
 **5) Credit score integration**
+
 **6) Support ticket system**
 
 ---
