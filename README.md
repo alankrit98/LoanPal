@@ -138,12 +138,12 @@ cd loanpal
 ```
 
 
-###2️⃣ Install dependencies
+### 2️⃣ Install dependencies
 ```bash
 npm install
 ```
 
-###3️⃣ Setup environment variables
+### 3️⃣ Setup environment variables
 ```bash
 
 Create a .env file in the root directory:
@@ -151,7 +151,7 @@ VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-###4️⃣ Run the application
+### 4️⃣ Run the application
 ```bash
 npm run dev
 ```
