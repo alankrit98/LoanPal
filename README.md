@@ -81,6 +81,8 @@ src/
 ├── hooks/
 │   ├── useAuth.ts
 │   └── useLoanChat.ts
+│   └── use-toast.ts
+│   └── use-mobile.ts
 │
 ├── lib/
 │   ├── generateSanctionLetterPDF.ts
@@ -88,6 +90,9 @@ src/
 │
 ├── integrations/
 │   └── supabase/
+├── Types/
+|   └── loan.ts/
+|   └── txt/
 │
 └── main.tsx
 ```
@@ -138,12 +143,12 @@ cd loanpal
 ```
 
 
-###2️⃣ Install dependencies
+### 2️⃣ Install dependencies
 ```bash
 npm install
 ```
 
-###3️⃣ Setup environment variables
+### 3️⃣ Setup environment variables
 ```bash
 
 Create a .env file in the root directory:
@@ -151,7 +156,7 @@ VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-###4️⃣ Run the application
+### 4️⃣ Run the application
 ```bash
 npm run dev
 ```
@@ -160,22 +165,22 @@ npm run dev
 
 ### 📌 Future Enhancements
 
-### 1) Admin dashboard
+**1) Admin dashboard** 
 
-### 2) Multi-bank loan offers
+**2) Multi-bank loan offers** 
 
-### 3) EMI calculator
+**3) EMI calculator**
 
-### 4) WhatsApp / Email notifications
+**4) WhatsApp / Email notifications**
 
-### 5) Credit score integration
+**5) Credit score integration**
 
-### 6) Support ticket system
+**6) Support ticket system**
 
 ---
 
 ### 👨‍💻 Author
 
-Made by Neeraj Kumar , 
+Made by Neeraj Kumar, Alankrit Agarwal, Tushar Sharma, Udit N. Pandey, Sohit K. Sharma 
 LoanPal – AI-driven loan approval platform
 Built with ❤️ using React, Supabase & AI
