@@ -67,7 +67,7 @@ export default function EMICalculator() {
               <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-lg">L</span>
               </div>
-              <span className="font-bold text-xl text-foreground">LoanAI</span>
+              <span className="font-bold text-xl text-foreground">LoanPal</span>
             </button>
 
             <div className="flex items-center gap-2">
