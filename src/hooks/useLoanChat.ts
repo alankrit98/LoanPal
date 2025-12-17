@@ -4,6 +4,17 @@ import { ChatMessage, ChatStep, LoanDetails, UploadedDocument, EligibilityResult
 import { v4 as uuidv4 } from 'uuid';
 import { useAuth } from './useAuth';
 
+interface ApplicationHistory {
+  id: string;
+  status: string | null;
+  ai_reason: string | null;
+  loan_amount: number;
+  credit_score: number | null;
+  created_at: string | null;
+  emi_amount: number | null;
+  loan_tenure: number;
+}
+
 interface ApplicationContext {
   hasExistingApplication: boolean;
   applicationStatus?: string;
@@ -11,6 +22,7 @@ interface ApplicationContext {
   loanAmount?: number;
   creditScore?: number;
   applicationId?: string;
+  applicationHistory: ApplicationHistory[];
 }
 
 interface IntentResponse {
@@ -35,7 +47,7 @@ export function useLoanChat() {
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [collectingField, setCollectingField] = useState<'name' | 'amount' | 'tenure' | 'income' | 'purpose' | null>(null);
   const [awaitingDocument, setAwaitingDocument] = useState<'salary_slip' | 'credit_score' | null>(null);
-  const [applicationContext, setApplicationContext] = useState<ApplicationContext>({ hasExistingApplication: false });
+  const [applicationContext, setApplicationContext] = useState<ApplicationContext>({ hasExistingApplication: false, applicationHistory: [] });
   const [sanctionLetterData, setSanctionLetterData] = useState<{
     applicationId: string;
     customerName: string;
@@ -75,17 +87,17 @@ export function useLoanChat() {
     }
   }, [user, applicationId]);
 
-  // Fetch user's application history on mount
+  // Fetch user's application history on mount (last 10 applications)
   const fetchApplicationHistory = useCallback(async () => {
     if (!user) return;
     
     try {
       const { data, error } = await supabase
         .from('loan_applications')
-        .select('id, status, ai_reason, loan_amount, credit_score, created_at')
+        .select('id, status, ai_reason, loan_amount, credit_score, created_at, emi_amount, loan_tenure')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
-        .limit(1);
+        .limit(10);
 
       if (error) {
         console.error('Error fetching application history:', error);
@@ -101,6 +113,7 @@ export function useLoanChat() {
           loanAmount: latestApp.loan_amount ? Number(latestApp.loan_amount) : undefined,
           creditScore: latestApp.credit_score || undefined,
           applicationId: latestApp.id,
+          applicationHistory: data as ApplicationHistory[],
         });
       }
     } catch (error) {
@@ -183,6 +196,10 @@ export function useLoanChat() {
         content: m.content
       }));
 
+      const currentDate = new Date().toLocaleDateString('en-IN', { 
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+      });
+
       const { data, error } = await supabase.functions.invoke('chat-intent', {
         body: {
           userMessage,
@@ -190,6 +207,7 @@ export function useLoanChat() {
           applicationContext,
           currentStep,
           isCollectingField: collectingField !== null,
+          currentDate,
         }
       });
 
@@ -562,14 +580,15 @@ export function useLoanChat() {
             setApplicationId(appId);
             
             // Update application context
-            setApplicationContext({
+            setApplicationContext(prev => ({
+              ...prev,
               hasExistingApplication: true,
               applicationStatus: 'rejected',
               rejectionReason,
               loanAmount: loanDetails.amount || undefined,
               creditScore: creditDoc?.parsedData?.creditScore || undefined,
               applicationId: appId,
-            });
+            }));
           } catch (error) {
             console.error('Error saving rejected application:', error);
           }
@@ -663,14 +682,15 @@ export function useLoanChat() {
         setApplicationId(appId);
         
         // Update application context
-        setApplicationContext({
+        setApplicationContext(prev => ({
+          ...prev,
           hasExistingApplication: true,
           applicationStatus: result.decision,
           rejectionReason: result.decision === 'rejected' ? result.reason : undefined,
           loanAmount: loanDetails.amount,
           creditScore,
           applicationId: appId,
-        });
+        }));
       } catch (error) {
         console.error('Error saving application:', error);
       }
@@ -722,20 +742,13 @@ export function useLoanChat() {
     });
   };
 
-  // Initial greeting
+  // Initial greeting - always fresh
   useEffect(() => {
     const timer = setTimeout(async () => {
-      // Wait a bit for application context to load
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      if (applicationContext.hasExistingApplication) {
-        addMessage('assistant', `Hi there! 👋 Welcome back!\n\nI see you have a ${applicationContext.applicationStatus} loan application${applicationContext.loanAmount ? ` for ₹${applicationContext.loanAmount.toLocaleString('en-IN')}` : ''}.\n\nHow can I help you today? You can:\n• Ask about your application status\n• Start a new application\n• Ask any loan-related questions`);
-      } else {
-        addMessage('assistant', "Hi there! 👋\n\nI'm your personal loan assistant. I'm here to help you apply for a loan quickly and easily.\n\nHow can I assist you today?");
-      }
+      addMessage('assistant', "Hi there! 👋\n\nI'm your personal loan assistant. I'm here to help you apply for a loan quickly and easily.\n\nHow can I assist you today? You can:\n• Apply for a new loan\n• Check your application status\n• Ask any loan-related questions");
     }, 500);
     return () => clearTimeout(timer);
-  }, [addMessage, applicationContext.hasExistingApplication, applicationContext.applicationStatus, applicationContext.loanAmount]);
+  }, [addMessage]);
 
   return {
     messages,
