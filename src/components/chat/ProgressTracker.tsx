@@ -23,7 +23,7 @@ export function ProgressTracker({ currentStep }: ProgressTrackerProps) {
     <div className="flex justify-center">
       <div className="flex items-center gap-4">
         {steps.map((step, index) => {
-          const stepIndex = stepOrder.indexOf(step.id);
+          const stepIndex = stepOrder.indexOf(step.id as ChatStep);
           const isActive = stepIndex <= currentIndex && currentStep !== 'greeting';
           const isCurrent = step.id === currentStep;
           const Icon = step.icon;
