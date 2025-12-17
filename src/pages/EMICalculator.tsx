@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Calculator, IndianRupee, Percent, Calendar, TrendingUp, PiggyBank } from 'lucide-react';
+import Footer from '@/components/landing/Footer';
+import { Bot } from 'lucide-react';
 
 export default function EMICalculator() {
   const navigate = useNavigate();
@@ -60,15 +62,14 @@ export default function EMICalculator() {
         {/* Header */}
         <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
           <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-            >
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">L</span>
-              </div>
-              <span className="font-bold text-xl text-foreground">LoanPal</span>
-            </button>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+            <Bot className="w-6 h-6 text-primary-foreground" />
+          </div>
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            LoanPal
+          </span>
+        </div>
 
             <div className="flex items-center gap-2">
               <ThemeToggle />
@@ -288,6 +289,7 @@ export default function EMICalculator() {
           </div>
         </main>
       </div>
+      <Footer/>
     </>
   );
 }

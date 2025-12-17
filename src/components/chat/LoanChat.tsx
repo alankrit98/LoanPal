@@ -9,6 +9,7 @@ import { SanctionLetterButton } from './SanctionLetterButton';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UserMenu } from '@/components/UserMenu';
+import { Bot } from 'lucide-react';
 
 export function LoanChat() {
   const navigate = useNavigate();
@@ -38,11 +39,15 @@ export function LoanChat() {
             onClick={() => navigate('/')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">L</span>
-            </div>
             <div className="text-left">
-              <h1 className="font-semibold text-foreground">Loan Assistant</h1>
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+            <Bot className="w-6 h-6 text-primary-foreground" />
+          </div>
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            LoanPal
+          </span>
+        </div>
               <p className="text-xs text-muted-foreground">Personal Loan Application</p>
             </div>
           </button>

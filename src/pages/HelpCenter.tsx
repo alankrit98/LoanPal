@@ -42,7 +42,7 @@ export default function HelpCenter() {
       <Header />
 
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+        <div className="max-w-6xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           
           {/* Hero / Search Section */}
           <div className="bg-blue-600 dark:bg-blue-700 px-8 py-16 sm:px-12 text-center relative overflow-hidden">
@@ -128,14 +128,22 @@ export default function HelpCenter() {
               
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
                 <div className="bg-card p-6 rounded-xl shadow-sm border border-border flex items-center">
-                  <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full mr-4 text-blue-600 dark:text-blue-400">
-                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Email Support</p>
-                    <a href="mailto:thakurneerajkumar017@gmail.com" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">thakurneerajkumar017@gmail.com</a>
-                  </div>
-                </div>
+  <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full mr-4 text-blue-600 dark:text-blue-400 shrink-0">
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+    </svg>
+  </div>
+  
+  {/* Added 'flex-1' and 'min-w-0' to this wrapper div */}
+  <div className="text-left flex-1 min-w-0">
+    <p className="text-xs text-muted-foreground font-bold uppercase tracking-wide">Email Support</p>
+    
+    {/* Added 'break-all' to the anchor tag */}
+    <a href="mailto:thakurneerajkumar017@gmail.com" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline break-all">
+      thakurneerajkumar017@gmail.com
+    </a>
+  </div>
+</div>
 
                 <div className="bg-card p-6 rounded-xl shadow-sm border border-border flex items-center">
                   <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-full mr-4 text-green-600 dark:text-green-400">

@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
       <Header />
       
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+        <div className="max-w-6xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           <div className="px-8 py-12 sm:px-12 sm:py-16">
             
             {/* Page Title Header */}
@@ -323,15 +323,15 @@ export default function PrivacyPolicy() {
                    <div className="grid md:grid-cols-2 gap-4 text-base">
                       <div>
                         <p className="text-muted-foreground text-sm">Name</p>
-                        <p className="font-medium text-foreground">[Designated Officer]</p>
+                        <p className="font-medium text-foreground">Neeraj Kumar</p>
                       </div>
                        <div>
                         <p className="text-muted-foreground text-sm">Email</p>
-                        <p className="font-medium text-blue-600 dark:text-blue-400">grievance@[platform-domain].com</p>
+                        <p className="font-medium text-blue-600 dark:text-blue-400">thakurneerajkumar017@gmail.com</p>
                       </div>
                        <div>
                         <p className="text-muted-foreground text-sm">Phone</p>
-                        <p className="font-medium text-foreground">[Contact Number]</p>
+                        <p className="font-medium text-foreground">8448275790</p>
                       </div>
                        <div>
                         <p className="text-muted-foreground text-sm">Working Hours</p>
@@ -366,15 +366,15 @@ export default function PrivacyPolicy() {
                 <div className="grid gap-4 md:grid-cols-3">
                   <div className="bg-card p-6 rounded-xl border border-border text-center shadow-sm hover:shadow-md transition-shadow">
                     <h4 className="font-bold text-foreground mb-2">Privacy Inquiries</h4>
-                    <p className="text-blue-600 dark:text-blue-400 font-medium">privacy@[platform-domain].com</p>
+                    <p className="text-blue-600 dark:text-blue-400 font-medium">thakurneerajkumar017@gmail.com</p>
                   </div>
                   <div className="bg-card p-6 rounded-xl border border-border text-center shadow-sm hover:shadow-md transition-shadow">
                     <h4 className="font-bold text-foreground mb-2">Customer Support</h4>
-                    <p className="text-blue-600 dark:text-blue-400 font-medium">support@[platform-domain].com</p>
+                    <p className="text-blue-600 dark:text-blue-400 font-medium">thakurneerajkumar017@gmail.com</p>
                   </div>
                   <div className="bg-card p-6 rounded-xl border border-border text-center shadow-sm hover:shadow-md transition-shadow">
                     <h4 className="font-bold text-foreground mb-2">Registered Office</h4>
-                    <p className="text-muted-foreground text-sm">[Registered Office Address]</p>
+                    <p className="text-muted-foreground text-sm">Barola Sector-49 Noida, India</p>
                   </div>
                 </div>
               </section>

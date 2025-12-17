@@ -77,7 +77,7 @@ export default function FAQ() {
       <Header />
 
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+        <div className="max-w-6xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           <div className="px-8 py-12 sm:px-12">
             
             {/* Header */}

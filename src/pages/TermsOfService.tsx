@@ -7,7 +7,7 @@ export default function TermsOfService() {
       <Header />
       
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+        <div className="max-w-6xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           <div className="px-8 py-12 sm:px-12 sm:py-16">
             
             {/* Page Title */}
@@ -426,11 +426,11 @@ export default function TermsOfService() {
                       <div className="space-y-2 text-muted-foreground">
                         <p className="flex items-center">
                           <span className="w-20 font-medium text-foreground">Email:</span> 
-                          support@[platform-domain].com
+                          thakurneerajkumar017@gmail.com
                         </p>
                         <p className="flex items-center">
                           <span className="w-20 font-medium text-foreground">Phone:</span> 
-                          [Customer Support Number]
+                          8448275790
                         </p>
                         <p className="flex items-start">
                           <span className="w-20 font-medium text-foreground flex-shrink-0">Hours:</span> 
@@ -441,7 +441,7 @@ export default function TermsOfService() {
                     <div>
                       <h4 className="font-bold text-foreground uppercase tracking-wide text-xs mb-4">Registered Office</h4>
                       <p className="text-muted-foreground leading-relaxed">
-                        [Complete Registered Address]
+                        Barols Sector-49 Noida, India
                       </p>
                     </div>
                   </div>

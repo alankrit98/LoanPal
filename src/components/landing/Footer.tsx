@@ -2,21 +2,23 @@ import { Bot, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from
 import TermsOfService from '@/pages/TermsOfService';
 import RBICompliance from '@/pages/RBICompliance';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
+  const navigate=useNavigate();
   return (
     <footer className="bg-foreground text-background/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Bot className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <span className="text-2xl font-bold text-background">
-                LoanPal
-              </span>
-            </div>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+            <Bot className="w-6 h-6 text-primary-foreground" />
+          </div>
+          <span className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            LoanPal
+          </span>
+        </div>
             <p className="text-background/60 leading-relaxed">
               Your AI-powered personal loan assistant. Making loan approvals smarter, faster, and more transparent.
             </p>

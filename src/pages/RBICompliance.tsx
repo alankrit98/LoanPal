@@ -7,7 +7,7 @@ export default function RBICompliance() {
       <Header />
       
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+        <div className="max-w-6xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           <div className="px-8 py-12 sm:px-12 sm:py-16">
             
             {/* Header Section */}
@@ -346,8 +346,8 @@ export default function RBICompliance() {
                     <div className="bg-blue-100 dark:bg-blue-900/30 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-600 dark:text-blue-400 font-bold">1</div>
                     <h3 className="font-bold text-foreground mb-2">Customer Support</h3>
                     <div className="text-sm text-muted-foreground space-y-1">
-                      <p>support@[platform].com</p>
-                      <p>[Support Number]</p>
+                      <p>thakurneerajkumar017@gmail.com</p>
+                      <p>8448275790</p>
                       <p className="font-medium text-green-600 dark:text-green-400 mt-2">Within 24 hours</p>
                     </div>
                   </div>
@@ -358,9 +358,9 @@ export default function RBICompliance() {
                     <div className="bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white font-bold">2</div>
                     <h3 className="font-bold text-foreground mb-2">Grievance Officer</h3>
                     <div className="text-sm text-muted-foreground space-y-1">
-                      <p>[Officer Name]</p>
-                      <p>grievance@[platform].com</p>
-                      <p>[Officer Number]</p>
+                      <p>Neeraj Kumar</p>
+                      <p>thakurneerajkumar17@gmail.com</p>
+                      <p>8448275790</p>
                       <p className="font-medium text-green-600 dark:text-green-400 mt-2">Within 15 days</p>
                     </div>
                   </div>
@@ -371,7 +371,7 @@ export default function RBICompliance() {
                     <h3 className="font-bold text-foreground mb-2">Senior Management</h3>
                     <div className="text-sm text-muted-foreground space-y-1">
                       <p>Chief Compliance Officer</p>
-                      <p>compliance@[platform].com</p>
+                      <p>thakurneerajkumar017@gmail.com</p>
                       <p className="font-medium text-orange-600 dark:text-orange-400 mt-2">After 15 days</p>
                     </div>
                   </div>
@@ -476,10 +476,10 @@ export default function RBICompliance() {
                     <div>
                       <h4 className="font-bold text-foreground uppercase tracking-wide text-xs mb-4">Platform Compliance Officer</h4>
                       <div className="space-y-2 text-muted-foreground">
-                        <p><span className="font-medium text-foreground w-24 inline-block">Name:</span> [Compliance Officer Name]</p>
+                        <p><span className="font-medium text-foreground w-24 inline-block">Name:</span> Neeraj Kumar</p>
                         <p><span className="font-medium text-foreground w-24 inline-block">Designation:</span> Chief Compliance Officer</p>
-                        <p><span className="font-medium text-foreground w-24 inline-block">Email:</span> compliance@[platform-domain].com</p>
-                        <p><span className="font-medium text-foreground w-24 inline-block">Phone:</span> [Compliance Officer Number]</p>
+                        <p><span className="font-medium text-foreground w-24 inline-block">Email:</span> thakurneerajkumar017@gmail.com</p>
+                        <p><span className="font-medium text-foreground w-24 inline-block">Phone:</span> 8448275790</p>
                       </div>
                     </div>
                     <div>
@@ -487,11 +487,11 @@ export default function RBICompliance() {
                        <div className="space-y-4">
                          <div>
                            <p className="text-sm font-medium text-muted-foreground mb-1">Registered Office Address</p>
-                           <p className="text-foreground">[Complete Registered Office Address with Pin Code]</p>
+                           <p className="text-foreground">Barola Sector-49 Noida, India</p>
                          </div>
                          <div>
                            <p className="text-sm font-medium text-muted-foreground mb-1">Corporate Identity Number (CIN)</p>
-                           <p className="text-foreground font-mono">[Company CIN]</p>
+                           <p className="text-foreground font-mono">2201920130111</p>
                          </div>
                        </div>
                     </div>
