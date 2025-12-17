@@ -5,6 +5,17 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+interface ApplicationHistoryItem {
+  id: string;
+  status: string | null;
+  ai_reason: string | null;
+  loan_amount: number;
+  credit_score: number | null;
+  created_at: string | null;
+  emi_amount: number | null;
+  loan_tenure: number;
+}
+
 interface IntentRequest {
   userMessage: string;
   conversationHistory: { role: string; content: string }[];
@@ -14,9 +25,11 @@ interface IntentRequest {
     rejectionReason?: string;
     loanAmount?: number;
     creditScore?: number;
+    applicationHistory?: ApplicationHistoryItem[];
   };
   currentStep: string;
   isCollectingField: boolean;
+  currentDate: string;
 }
 
 serve(async (req) => {
@@ -25,34 +38,73 @@ serve(async (req) => {
   }
 
   try {
-    const { userMessage, conversationHistory, applicationContext, currentStep, isCollectingField }: IntentRequest = await req.json();
+    const { userMessage, conversationHistory, applicationContext, currentStep, isCollectingField, currentDate }: IntentRequest = await req.json();
     
-    const Lovable_API_KEY = Deno.env.get("Lovable_API_KEY");
-    if (!Lovable_API_KEY) {
-      throw new Error("Lovable_API_KEY is not configured");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const systemPrompt = `You are an intent classifier for a loan assistant chatbot. Your job is to understand the user's intent and provide a structured response.
+    // Use provided current date or fallback to server date
+    const todayDate = currentDate || new Date().toLocaleDateString('en-IN', { 
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    });
+
+    // Build application history summary for AI context
+    const appHistory = applicationContext?.applicationHistory || [];
+    let historyContext = "";
+    
+    if (appHistory.length > 0) {
+      const approved = appHistory.filter(a => a.status === 'approved').length;
+      const rejected = appHistory.filter(a => a.status === 'rejected').length;
+      const pending = appHistory.filter(a => a.status === 'pending' || a.status === 'manual_review').length;
+      const totalAmount = appHistory.reduce((sum, a) => sum + Number(a.loan_amount || 0), 0);
+      const approvedAmount = appHistory.filter(a => a.status === 'approved').reduce((sum, a) => sum + Number(a.loan_amount || 0), 0);
+      
+      historyContext = `
+USER'S LOAN APPLICATION HISTORY (Last ${appHistory.length} applications):
+- Total applications: ${appHistory.length}
+- Approved: ${approved}
+- Rejected: ${rejected}
+- Pending/Under Review: ${pending}
+- Total amount applied: ₹${totalAmount.toLocaleString('en-IN')}
+- Total approved amount: ₹${approvedAmount.toLocaleString('en-IN')}
+
+DETAILED HISTORY:
+${appHistory.map((app, i) => `${i + 1}. Application ID: ${app.id.substring(0, 8)}...
+   - Status: ${app.status?.toUpperCase() || 'UNKNOWN'}
+   - Amount: ₹${Number(app.loan_amount).toLocaleString('en-IN')}
+   - Tenure: ${app.loan_tenure} months
+   - Credit Score: ${app.credit_score || 'N/A'}
+   - EMI: ${app.emi_amount ? `₹${Number(app.emi_amount).toLocaleString('en-IN')}/month` : 'N/A'}
+   - Date: ${app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : 'N/A'}
+   ${app.ai_reason ? `- Reason: ${app.ai_reason}` : ''}`).join('\n')}`;
+    }
+
+    const systemPrompt = `You are an intelligent, friendly loan assistant chatbot like ChatGPT or Gemini. You must answer ALL user questions naturally and helpfully. Never give repetitive or generic responses.
+
+IMPORTANT: Today's date is ${todayDate}. Always use this date when users ask about the current date, day, or time.
 
 CONTEXT:
 - Current chat step: ${currentStep}
 - Is collecting form field: ${isCollectingField}
 - User has existing application: ${applicationContext?.hasExistingApplication || false}
-- Application status: ${applicationContext?.applicationStatus || 'none'}
-- Rejection reason: ${applicationContext?.rejectionReason || 'none'}
+- Latest application status: ${applicationContext?.applicationStatus || 'none'}
+- Latest rejection reason: ${applicationContext?.rejectionReason || 'none'}
+${historyContext}
 
 INTENT CATEGORIES:
 1. "greeting" - User is greeting or starting conversation
 2. "apply_loan" - User wants to apply for a new loan
 3. "check_status" - User wants to know their application status
 4. "rejection_reason" - User wants to know why their loan was rejected
-5. "application_history" - User wants to see their past applications
+5. "application_history" - User wants to see their past applications or ask about them (how many approved, rejected, total amount, etc.)
 6. "loan_info" - User has general questions about loans, EMI, interest rates
 7. "form_response" - User is responding to a form question (providing name, amount, tenure, income)
 8. "document_query" - User is asking about documents or upload process
 9. "help" - User needs help or guidance
 10. "continue_application" - User wants to continue an existing/pending application
-11. "other" - Anything else
+11. "other" - Anything else that needs a thoughtful response
 
 RESPONSE FORMAT (JSON only):
 {
@@ -62,13 +114,15 @@ RESPONSE FORMAT (JSON only):
   "shouldContinueFlow": <true if the user is cooperating with the current flow, false if they're asking something else>
 }
 
-IMPORTANT RULES:
-- If the user is in the middle of providing form data (isCollectingField=true) and their message looks like a form response, classify as "form_response" with shouldContinueFlow=true
-- If user asks about rejection but has no rejected application, acknowledge this in suggestedResponse
-- If user asks about status but has no application, inform them politely
-- Be conversational and friendly in suggestedResponse
-- If the user has a rejected application and asks "why", include the actual rejection reason in the response
-- Never repeat the same onboarding message; be context-aware`;
+CRITICAL RULES:
+1. NEVER give repetitive or generic responses - always provide specific, contextual answers
+2. When user asks about their history (how many approved/rejected, amounts, etc.), use the DETAILED HISTORY above to give accurate numbers
+3. If user asks "why was my loan rejected?", ALWAYS include the specific rejection reason from the history
+4. Be conversational, empathetic, and helpful like ChatGPT
+5. For questions about loan history, calculate exact numbers from the history data provided
+6. If the user is in the middle of providing form data (isCollectingField=true) and their message looks like a form response, classify as "form_response" with shouldContinueFlow=true
+7. Answer ANY question the user asks - don't redirect them unless absolutely necessary
+8. Use the user's actual data to personalize responses (e.g., "You have 3 approved loans totaling ₹5,00,000")`;
 
     const messages = [
       { role: "system", content: systemPrompt },
@@ -76,10 +130,10 @@ IMPORTANT RULES:
       { role: "user", content: userMessage }
     ];
 
-    const response = await fetch("https://ai.gateway.Lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${Lovable_API_KEY}`,
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
