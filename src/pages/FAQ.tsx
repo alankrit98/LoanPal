@@ -73,19 +73,19 @@ export default function FAQ() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
+    <div className="min-h-screen flex flex-col bg-background font-sans">
       <Header />
 
       <main className="flex-grow py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
           <div className="px-8 py-12 sm:px-12">
             
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-4">
                 Frequently Asked Questions
               </h1>
-              <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Everything you need to know about our services, application process, and security.
               </p>
             </div>
@@ -98,8 +98,8 @@ export default function FAQ() {
                   onClick={() => { setActiveCategory(cat.id); setOpenQuestion(null); }}
                   className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-200 border ${
                     activeCategory === cat.id
-                      ? "bg-blue-600 text-white border-blue-600 shadow-md transform scale-105"
-                      : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+                      ? "bg-blue-600 dark:bg-blue-600 text-white border-blue-600 shadow-md transform scale-105"
+                      : "bg-background text-muted-foreground border-border hover:bg-muted hover:border-muted-foreground"
                   }`}
                 >
                   {cat.label}
@@ -114,19 +114,19 @@ export default function FAQ() {
                   key={index} 
                   className={`border rounded-xl transition-all duration-300 ${
                     openQuestion === index 
-                      ? "border-blue-200 bg-blue-50/50 shadow-sm" 
-                      : "border-gray-200 bg-white hover:border-blue-300"
+                      ? "border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-900/10 shadow-sm" 
+                      : "border-border bg-card hover:border-blue-300 dark:hover:border-blue-700"
                   }`}
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
                     className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
                   >
-                    <span className={`font-bold text-lg ${openQuestion === index ? "text-blue-800" : "text-gray-800"}`}>
+                    <span className={`font-bold text-lg ${openQuestion === index ? "text-blue-800 dark:text-blue-300" : "text-foreground"}`}>
                       {item.question}
                     </span>
                     <div className={`ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border transition-all ${
-                      openQuestion === index ? "bg-blue-600 border-blue-600 text-white rotate-180" : "bg-white border-gray-300 text-gray-400"
+                      openQuestion === index ? "bg-blue-600 border-blue-600 text-white rotate-180" : "bg-card border-border text-muted-foreground"
                     }`}>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -139,7 +139,7 @@ export default function FAQ() {
                       openQuestion === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <div className="px-6 pb-6 pt-0 text-gray-600 leading-relaxed border-t border-blue-100/0">
+                    <div className="px-6 pb-6 pt-0 text-muted-foreground leading-relaxed border-t border-transparent">
                       <p className="pt-2">{item.answer}</p>
                     </div>
                   </div>
@@ -148,21 +148,21 @@ export default function FAQ() {
             </div>
 
             {/* Bottom CTA */}
-            <div className="mt-16 bg-gray-900 rounded-2xl p-8 sm:p-10 text-center relative overflow-hidden">
+            <div className="mt-16 bg-slate-900 dark:bg-slate-950 rounded-2xl p-8 sm:p-10 text-center relative overflow-hidden border border-slate-800">
                {/* Decorative background element */}
-               <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-gray-800 rounded-full opacity-50 blur-2xl"></div>
-               <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-blue-900 rounded-full opacity-50 blur-2xl"></div>
+               <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-slate-800 dark:bg-slate-900 rounded-full opacity-50 blur-2xl"></div>
+               <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-blue-900/50 rounded-full opacity-50 blur-2xl"></div>
 
                <h3 className="text-2xl font-bold text-white mb-3 relative z-10">Can't find what you're looking for?</h3>
-               <p className="text-gray-400 mb-8 relative z-10 max-w-lg mx-auto">
+               <p className="text-slate-400 mb-8 relative z-10 max-w-lg mx-auto">
                  Our friendly support team is here to help you with any specific questions or technical issues.
                </p>
                <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-                 <a href="mailto:support@platform.com" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-50 transition-colors shadow-lg">
-                   <svg className="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                 <a href="mailto:support@platform.com" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-slate-900 bg-white hover:bg-slate-100 transition-colors shadow-lg">
+                   <svg className="w-5 h-5 mr-2 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                    Email Support
                  </a>
-                 <a href="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-lg text-white hover:bg-gray-800 transition-colors">
+                 <a href="/contact" className="inline-flex items-center justify-center px-6 py-3 border border-slate-600 text-base font-medium rounded-lg text-white hover:bg-slate-800 transition-colors">
                    Contact Us
                  </a>
                </div>
