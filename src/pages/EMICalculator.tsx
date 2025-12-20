@@ -119,11 +119,11 @@ export default function EMICalculator() {
                       <div className="relative">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₹</span>
                         <Input
-                          type="number"
-                          value={loanAmount}
-                          onChange={(e) => setLoanAmount(Number(e.target.value))}
-                          className="w-32 pl-7 text-right"
-                        />
+  type="number"
+  value={loanAmount === 0 ? '' : loanAmount}
+  onChange={(e) => setLoanAmount(e.target.value === '' ? 0 : Number(e.target.value))}
+  className="w-40 pl-7 pr-8 text-left"
+/>
                       </div>
                     </div>
                     <Slider
@@ -149,12 +149,12 @@ export default function EMICalculator() {
                       </Label>
                       <div className="relative">
                         <Input
-                          type="number"
-                          value={interestRate}
-                          onChange={(e) => setInterestRate(Number(e.target.value))}
-                          className="w-24 text-right pr-8"
-                          step="0.1"
-                        />
+  type="number"
+  value={interestRate === 0 ? '' : interestRate}
+  onChange={(e) => setInterestRate(e.target.value === '' ? 0 : Number(e.target.value))}
+  className="w-24 text-right pr-8"
+  step="0.1"
+/>
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
                       </div>
                     </div>
@@ -174,34 +174,37 @@ export default function EMICalculator() {
 
                   {/* Tenure */}
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Label className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-primary" />
-                        Loan Tenure
-                      </Label>
-                      <div className="relative">
-                        <Input
-                          type="number"
-                          value={tenure}
-                          onChange={(e) => setTenure(Number(e.target.value))}
-                          className="w-24 text-right pr-14"
-                        />
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">months</span>
-                      </div>
-                    </div>
-                    <Slider
-                      value={[tenure]}
-                      onValueChange={([value]) => setTenure(value)}
-                      min={6}
-                      max={84}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>6 months</span>
-                      <span>84 months</span>
-                    </div>
-                  </div>
+  <div className="flex items-center justify-between">
+    <Label className="flex items-center gap-2">
+      <Calendar className="h-4 w-4 text-primary" />
+      Loan Tenure
+    </Label>
+    <div className="relative">
+      <Input
+  type="number"
+  value={tenure === 0 ? '' : tenure}
+  onChange={(e) => setTenure(e.target.value === '' ? 0 : Number(e.target.value))}
+  className="w-32 text-right pr-14"
+/>
+      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+        months
+      </span>
+    </div>
+  </div>
+  <Slider
+    value={[tenure]}
+    onValueChange={([value]) => setTenure(value)}
+    min={6}
+    max={84}
+    step={1}
+    className="w-full"
+  />
+  <div className="flex justify-between text-xs text-muted-foreground">
+    <span>6 months</span>
+    <span>84 months</span>
+  </div>
+</div>
+
                 </CardContent>
               </Card>
 

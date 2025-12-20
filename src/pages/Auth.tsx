@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Loader2, Mail, Lock, User, ArrowLeft } from 'lucide-react';
+import { Loader2, Mail, Lock, User, ArrowLeft, Github } from 'lucide-react';
 import { z } from 'zod';
 
 const emailSchema = z.string().trim().email('Please enter a valid email address');
@@ -23,7 +23,8 @@ export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string; fullName?: string }>({});
 
-  const { signIn, signUp, user, loading } = useAuth();
+  const { signIn, signUp, signInWithGoogle, signInWithGithub, user, loading } = useAuth();
+  const [isOAuthLoading, setIsOAuthLoading] = useState<'google' | 'github' | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -163,6 +164,69 @@ export default function Auth() {
             </CardHeader>
 
             <CardContent>
+              {/* OAuth Buttons */}
+              <div className="space-y-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full flex items-center gap-2 justify-center"
+                  onClick={async () => {
+                    setIsOAuthLoading('google');
+                    const { error } = await signInWithGoogle();
+                    if (error) {
+                      toast({
+                        variant: 'destructive',
+                        title: 'Google Sign In Failed',
+                        description: error.message,
+                      });
+                      setIsOAuthLoading(null);
+                    }
+                  }}
+                  disabled={isLoading || isOAuthLoading !== null}
+                >
+                  {isOAuthLoading === 'google' ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <span className="font-bold text-lg">G</span>
+                  )}
+                  Continue with Google
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full flex items-center gap-2 justify-center"
+                  onClick={async () => {
+                    setIsOAuthLoading('github');
+                    const { error } = await signInWithGithub();
+                    if (error) {
+                      toast({
+                        variant: 'destructive',
+                        title: 'GitHub Sign In Failed',
+                        description: error.message,
+                      });
+                      setIsOAuthLoading(null);
+                    }
+                  }}
+                  disabled={isLoading || isOAuthLoading !== null}
+                >
+                  {isOAuthLoading === 'github' ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Github className="h-4 w-4" />
+                  )}
+                  Continue with GitHub
+                </Button>
+              </div>
+
+              {/* Divider */}
+              <div className="relative my-6">
+                <div className="border-t border-border"></div>
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-muted-foreground text-sm">
+                  OR
+                </span>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLogin && (
                   <div className="space-y-2">

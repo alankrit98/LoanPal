@@ -52,7 +52,35 @@ export function useAuth() {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
+  await supabase.auth.signOut();
+
+  // Clear local state immediately
+  setUser(null);
+  setSession(null);
+
+  // Force reload to clear Supabase session cache
+  window.location.href = "/auth";
+};
+
+
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/`
+      }
+    });
+    return { error };
+  };
+
+  const signInWithGithub = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${window.location.origin}/`
+      }
+    });
     return { error };
   };
 
@@ -63,5 +91,7 @@ export function useAuth() {
     signUp,
     signIn,
     signOut,
+    signInWithGoogle,
+    signInWithGithub,
   };
 }
