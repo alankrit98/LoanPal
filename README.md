@@ -7,6 +7,12 @@ It helps users apply for loans, understand approval or rejection reasons, and do
 ---
 
 ## 🌟 Key Features
+### 💬 AI Homepage Chatbot
+- Always available on the homepage for instant assistance
+- Helps users understand eligibility, documents, interest rates, and process steps
+- Provides personalized responses based on login status & loan history
+- Guides first-time users who have no applications yet
+- Redirects or assists in starting a new loan application seamlessly
 
 ### 🤖 AI Loan Assistant
 - Conversational, chat-based loan application
